@@ -3,6 +3,7 @@ This is the thing but...
     \t- it doesnt work for some reason
 """
 
+"Does it wokr"
 from Resources.resources import SOLVED, BOARD
 from Resources.resources import displayed, display
 import numpy as np
