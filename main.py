@@ -57,16 +57,13 @@ def solve(board, row, col):
                 elif col == 8:
                     if solve(board, row+1, 0):
                         return True
-                    else:
-                        board[row][col] = 0
 
                 else:
                     if not solve(board, row, col+1):
                         return True
-                    else:
-                        board[row][col] = 0
 
         else:
+            board[row][col] = 0
             return False
      
     elif col == 8:
