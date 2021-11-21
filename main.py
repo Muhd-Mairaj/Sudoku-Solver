@@ -44,28 +44,28 @@ def is_valid(i, j, option):
     return True
 
 
-def solve(i, j):
-    row, col = i, j
+def solve(board, row, col):
+    if all(0 not in line for line in board):
+        return True
 
-    if all(0 not in line for line in BOARD): return True
-
-    if BOARD[row][col] == 0:
+    if board[row][col] == 0:
 
         for option in options:
             if is_valid(row, col, option):
-                BOARD[row][col] = option
-                if all(0 not in line for line in BOARD):
+                board[row][col] = option
+
+                if all(0 not in line for line in board):
                     return True
 
                 elif col == 8:
-                    if not solve(row+1, 0):
-                        BOARD[row][col] = 0
+                    if not solve(board, row+1, 0):
+                        board[row][col] = 0
                     else:
                         return True
 
                 else:
-                    if not solve(row, col+1):
-                        BOARD[row][col] = 0
+                    if not solve(board, row, col+1):
+                        board[row][col] = 0
                     else:
                         return True
 
@@ -73,13 +73,19 @@ def solve(i, j):
             return False
      
     elif col == 8:
-        solve(row+1, 0)
+        solve(board, row+1, 0)
     else:
-        solve(row, col+1)
+        solve(board, row, col+1)
 
     
+def main(board):
+    print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print False
+    
+    solve(board, 0, 0)
+    display(board)
 
+    print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print True
+
+    
 if __name__ == '__main__':
-    solve(0, 0)
-    display(BOARD)
-    pass
+    main()
