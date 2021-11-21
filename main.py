@@ -45,29 +45,26 @@ def is_valid(i, j, option):
 
 
 def solve(board, row, col):
-    if all(0 not in line for line in board):
-        return True
-
     if board[row][col] == 0:
 
         for option in options:
             if is_valid(row, col, option):
                 board[row][col] = option
 
-                if all(0 not in line for line in board):
+                if 0 not in board:
                     return True
 
                 elif col == 8:
-                    if not solve(board, row+1, 0):
-                        board[row][col] = 0
-                    else:
+                    if solve(board, row+1, 0):
                         return True
+                    else:
+                        board[row][col] = 0
 
                 else:
                     if not solve(board, row, col+1):
-                        board[row][col] = 0
-                    else:
                         return True
+                    else:
+                        board[row][col] = 0
 
         else:
             return False
