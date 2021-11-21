@@ -1,2 +1,5 @@
 # Sudoku-Solver
-Solve Sudoku
+
+## Attempting to solve Sudoku
+### Problems:
+It doesnt work
