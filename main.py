@@ -4,6 +4,7 @@ This is the thing but...
 """
 
 "Does it wokr"
+"yes it does"
 from Resources.resources import SOLVED, BOARD
 from Resources.resources import displayed, display
 import numpy as np
