@@ -1,6 +1,9 @@
 """
-This is the thing but...
-    \t- it doesnt work for some reason
+This is the thing and...
+    it now works
+
+T̶h̶i̶s̶ ̶i̶s̶ ̶t̶h̶e̶ ̶t̶h̶i̶n̶g̶ ̶b̶u̶t̶.̶.̶.̶
+    \̶t̶-̶ ̶i̶t̶ ̶d̶o̶e̶s̶n̶t̶ ̶w̶o̶r̶k̶ ̶f̶o̶r̶ ̶s̶o̶m̶e̶ ̶r̶e̶a̶s̶o̶n̶
 """
 
 from Resources.resources import SOLVED, BOARD
