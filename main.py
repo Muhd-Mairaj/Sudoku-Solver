@@ -4,17 +4,18 @@ This is the thing but...
 """
 
 from Resources.resources import SOLVED, BOARD
-from Resources.resources import displayed, display
+from Resources.resources import display
 import numpy as np
 
 
 SOLVED = np.array(SOLVED)
-BOARD = np.array(BOARD)
+BOARD  = np.array(BOARD)
+
 
 options = set([1, 2, 3, 4, 5, 6, 7, 8, 9])
 
 
-def get_sub(board, i, j):
+def get_subpart(board, i, j):
     if i in (0, 1, 2):
         if   j in (0, 1, 2):
             return board[0:3,0:3]
@@ -44,30 +45,33 @@ def is_valid(board, i, j, option):
     if option in board[i] or option in board[:,j]:
         return False
 
-    subpart = get_sub(board, i, j)                      # returns a 3x3 np array
+    subpart = get_subpart(board, i, j)                  # returns a 3x3 np array
     part = [item for line in subpart for item in line]  # returns a list with all the elems of the 3x3 array above
+    if option in part:
+        return False
+
     if option in part:
         return False
 
     return True
 
 
-def solve(board, row, col):
+def solve(board, row, col) -> bool:
     if board[row][col] == 0:
 
         for option in options:
-            if is_valid(row, col, option):
+            if is_valid(board, row, col, option):
                 board[row][col] = option
 
                 if 0 not in board:
                     return True
 
-                elif col == 8:
+                if col == 8:
                     if solve(board, row+1, 0):
                         return True
 
                 else:
-                    if not solve(board, row, col+1):
+                    if solve(board, row, col+1):
                         return True
 
         else:
@@ -75,19 +79,23 @@ def solve(board, row, col):
             return False
      
     elif col == 8:
-        solve(board, row+1, 0)
+        # All I had to do was return this result...
+        # because otherwise the function returns None
+        # instead of the expected True (or False).
+        return solve(board, row+1, 0)
     else:
-        solve(board, row, col+1)
+        return solve(board, row, col+1)
 
     
 def main(board):
     print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print False
     
-    solve(board, 0, 0)
+    display(board)
+    print(solve(board, 0, 0))
     display(board)
 
     print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print True
 
     
 if __name__ == '__main__':
-    main()
+    main(BOARD)

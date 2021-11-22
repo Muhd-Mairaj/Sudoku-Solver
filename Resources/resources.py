@@ -1,8 +1,6 @@
 
 
-BOLD = "\033[1m"
-END = "\033[0m"
-
+# Sample 1
 SOLVED = [
      [5, 1, 7, 3, 4, 9, 8, 6, 2],
      [6, 4, 2, 7, 8, 1, 5, 9, 3],
@@ -25,6 +23,7 @@ BOARD = [[0, 0, 0, 3, 0, 0, 0, 6, 0],
          [0, 7, 0, 0, 0, 6, 2, 8, 0],
          [4, 0, 6, 9, 0, 0, 0, 5, 0],]
 
+# Sample 2
 # SOLVED = [[3, 1, 6, 5, 7, 8, 4, 9, 2],
 #           [5, 2, 9, 1, 3, 4, 7, 6, 8],
 #           [4, 8, 7, 6, 2, 9, 5, 3, 1],
@@ -47,29 +46,16 @@ BOARD = [[0, 0, 0, 3, 0, 0, 0, 6, 0],
 
 
 def bolded(text: str):
+    BOLD = "\033[1m"
+    END = "\033[0m"
+
     return BOLD + text + END
 
 
-# def display(board):
-#     """
-#     Function to display the required board when needed
-#     """
-#     i = 0
-#     while i < 9:
-#         for x, y, z in zip(board[i],
-#          board[i+1],
-#          board[i+2]):
-#             print(end=" ")
-#             print(*x, end=bolded(" | "))
-#             print(*y, end=bolded(" | "))
-#             print(*z,)
-
-#         i += 3
-#         if i < 9:
-#             print(bolded("\u2500" * 7), bolded("\u2500" * 7), bolded("\u2500" * 7))
-
-
 def display(npboard):
+    """
+    Function to display :param npboard: in the form of a sudoku board
+    """
     i = 0
     while i < 9:
         row = npboard[i]
@@ -87,29 +73,25 @@ def display(npboard):
             print(bolded("\u2500" * 7), bolded("\u2500" * 7), bolded("\u2500" * 7))
             
     print()
-        # print()
-        # print(row[:3], row[3:6], row[6:9], sep=bolded(" | "))
 
 
-def displayed(function):
-    """
-    Decorator that displays the board after executing the function call
-    """
+# Seems to be useles
+# def displayed(function):
+#     """
+#     Decorator that displays the board after executing the function call
+#     """
 
-    def wrapper(board=None, *args, **kwargs):
-        return_val = function(*args, **kwargs)
-        if board is not None:
-            display(board)
+#     def wrapper(board=None, *args, **kwargs):
+#         return_val = function(*args, **kwargs)
+#         if board is not None:
+#             display(board)
 
-        return return_val
+#         return return_val
 
-    return wrapper
-# displayed(main)()
+#     return wrapper
 
-@displayed
 def test_check():
-    print(all(0 not in line for line in SOLVED))
-    print(all(0 not in line for line in BOARD))
+    pass
 
 
 if __name__ == '__main__':
