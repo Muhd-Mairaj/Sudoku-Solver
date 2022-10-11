@@ -49,10 +49,7 @@ def is_valid(board, i, j, option):
         return False
 
     subpart = get_subpart(board, i, j)                  # returns a 3x3 np array
-    part = [item for line in subpart for item in line]  # returns a list with all the elems of the 3x3 array above
-    if option in part:
-        return False
-
+    part = [item for row in subpart for item in row]  # returns a list with all the elems of the 3x3 array above
     if option in part:
         return False
 
