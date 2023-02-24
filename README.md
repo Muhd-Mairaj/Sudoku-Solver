@@ -1,4 +1,4 @@
 # Sudoku-Solver
 
 ### Problems:
-NaN
+doesnt work
