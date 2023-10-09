@@ -1,101 +1,136 @@
 """
-This is the thing and...
-    it now works
+Working no numpy solution
+Much faster, added optimisations.
 
-T̶h̶i̶s̶ ̶i̶s̶ ̶t̶h̶e̶ ̶t̶h̶i̶n̶g̶ ̶b̶u̶t̶.̶.̶.̶
-    \̶t̶-̶ ̶i̶t̶ ̶d̶o̶e̶s̶n̶t̶ ̶w̶o̶r̶k̶ ̶f̶o̶r̶ ̶s̶o̶m̶e̶ ̶r̶e̶a̶s̶o̶n̶
+Tests for most functions in test_no_numpy.py
 """
 
 from Resources.resources import SOLVED, BOARD
-from Resources.resources import display
-import numpy as np
+from Resources.resources import displayed, display
+import time
 
 
-SOLVED = np.array(SOLVED)
-BOARD  = np.array(BOARD)
+def get_subpart_index(i, j):
+    """
+    i: row index
+    j: col index
+    
+    Formula:
+    - x // 3 gives score from 0-2
+    - Multiply row score by 3 to add weight
+    - Finally sum with col score to get subpart index
 
-
-options = set([1, 2, 3, 4, 5, 6, 7, 8, 9])
+    returns: the index of 3x3 subpart which encapsulates the position [i][j] in sudoku board
+    """
+    return 3 * (i//3) + j//3
 
 
 def get_subpart(board, i, j):
-    if i in (0, 1, 2):
-        if   j in (0, 1, 2):
-            return board[0:3,0:3]
-        elif j in (3, 4, 5):
-            return board[0:3,3:6]
-        elif j in (6, 7, 8):
-            return board[0:3,6:9]
+    """
+    board: the current sudoku board
+    i: row index
+    j: col index
 
-    elif i in (3, 4, 5):
-        if   j in (0, 1, 2):
-            return board[3:6,0:3]
-        elif j in (3, 4, 5):
-            return board[3:6,3:6]
-        elif j in (6, 7, 8):
-            return board[3:6,6:9]
+    returns the relevant 3x3 subpart of board that encapsulates the position board[i][j]
+    """
+    all_subparts = []
+    ind = get_subpart_index(i, j)
 
-    elif i in (6, 7, 8):
-        if   j in (0, 1, 2):
-            return board[6:9,0:3]
-        elif j in (3, 4, 5):
-            return board[6:9,3:6]
-        elif j in (6, 7, 8):
-            return board[6:9,6:9]
+    for x in range(0,9,3):
+        for j_ in range(0,9,3):
+            part = []
+            for i_ in range(x,x+3):
+                part.append(board[i_][j_:j_+3])
+            all_subparts.append(part)
+    
+    return all_subparts[ind]
 
 
-def is_valid(board, i, j, option):
-    if option in board[i] or option in board[:,j]:
+def get_row_col(board, i, j):
+    """
+    board: the current sudoku board
+    row: row index
+    col: col index
+
+    returns: the row and column in board where row index is i and column index is j
+    """
+    row = board[i][:]
+    col = [board[x][j] for x in range(9)]
+
+    return row, col
+    
+
+def is_valid(option, row, col, subpart):
+    """
+    option: the digit to check for
+    row (list): the current row to check option in
+    col(list): the current col to check option in
+    subpart: the relevant 3x3 subpart to check option in
+
+    Checks board to see if option is a valid choice.
+    
+    returns: True if option is valid else False
+    """
+    if option in row or option in col:
         return False
-
-    subpart = get_subpart(board, i, j)                  # returns a 3x3 np array
-    part = [item for row in subpart for item in row]  # returns a list with all the elems of the 3x3 array above
-    if option in part:
+    
+    if any(option in sub for sub in subpart):
         return False
-
+    
     return True
 
 
-def solve(board, row, col) -> bool:
-    if board[row][col] == 0:
+def solve(board, i, j):
+    if board[i][j] == 0:
+        row, col = get_row_col(board, i, j)
+        subpart = get_subpart(board, i, j)
+        for option in {1, 2, 3, 4, 5, 6, 7, 8, 9}:
+            # if option is valid, play the option
+            if is_valid(option, row, col, subpart):
+                board[i][j] = option
 
-        for option in options:
-            if is_valid(board, row, col, option):
-                board[row][col] = option
-
-                if 0 not in board:
+                # base case, if last position, return True
+                if i == 8 and j == 8:
                     return True
 
-                if col == 8:
-                    if solve(board, row+1, 0):
+                # if recurisve call returns True (solved), return True; else continue
+                if j == 8:
+                    if solve(board, i + 1, 0):
                         return True
-
                 else:
-                    if solve(board, row, col+1):
+                    if solve(board, i, j+1):
                         return True
-
-        else:
-            board[row][col] = 0
-            return False
-     
-    elif col == 8:
-        # All I had to do was return this result...
-        # because otherwise the function returns None
-        # instead of the expected True (or False).
-        return solve(board, row+1, 0)
+        
+        # if solution was not found, reset current position return False
+        board[i][j] = 0
+        return False
+    
+    elif i == 8 and j == 8:
+        return True
+    elif j == 8:
+        return solve(board, i + 1, 0)
     else:
-        return solve(board, row, col+1)
+        return solve(board, i, j+1)
 
+
+def main():
+    display(SOLVED)
+    print("------------------------------------")
     
-def main(board):
-    print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print False
+    start = time.time()
+    solve(BOARD, 0, 0)
+    end = time.time()
+
+    display(BOARD)
+    print("------------------------------------")
+
+    display(SOLVED)
+
+    print(SOLVED == BOARD)
+    interval = end - start
+    print("Total time taken to solve the puzzle was:", interval)
     
-    display(board)
-    print(solve(board, 0, 0))
-    display(board)
-
-    print(all(x.all()==y.all() for x,y in zip(board, SOLVED)))   # should print True
-
+    
     
 if __name__ == '__main__':
-    main(BOARD)
+    main()
