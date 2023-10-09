@@ -2,7 +2,7 @@
 Working no numpy solution
 Much faster, added optimisations.
 
-Tests for most functions in test_no_numpy.py
+Tests for most functions in test_main.py
 """
 
 from Resources.resources import SOLVED, BOARD
