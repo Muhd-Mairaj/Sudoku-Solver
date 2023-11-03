@@ -1,29 +1,58 @@
 
 
-# Sample 1
-SOLVED = [
-     [5, 1, 7, 3, 4, 9, 8, 6, 2],
-     [6, 4, 2, 7, 8, 1, 5, 9, 3],
-     [8, 9, 3, 6, 2, 5, 1, 4, 7],
-     [7, 6, 4, 9, 5, 1, 2, 3, 8],
-     [2, 1, 8, 4, 6, 3, 5, 9, 7],
-     [9, 3, 5, 7, 2, 8, 4, 1, 6],
-     [1, 2, 5, 3, 7, 9, 4, 8, 6],
-     [8, 3, 4, 1, 5, 6, 9, 7, 2],
-     [6, 7, 9, 2, 8, 4, 3, 5, 1],
-]
+BOLD = "\033[1m"
+END = "\033[0m"
 
-BOARD = [[0, 0, 0, 3, 0, 0, 0, 6, 0],
-         [0, 0, 0, 0, 8, 0, 0, 0, 3],
-         [0, 9, 0, 0, 2, 0, 1, 0, 0],
-         [0, 0, 0, 2, 1, 0, 0, 0, 0],
-         [9, 0, 1, 4, 0, 0, 0, 2, 8],
-         [0, 0, 0, 0, 0, 7, 0, 0, 6],
-         [0, 0, 0, 0, 3, 4, 0, 0, 0],
-         [0, 7, 0, 0, 0, 6, 2, 8, 0],
-         [4, 0, 6, 9, 0, 0, 0, 5, 0],]
 
-# Sample 2
+SOLVED = [[4, 9, 5, 6, 7, 3, 2, 8, 1],
+          [1, 2, 6, 8, 4, 5, 9, 7, 3],
+          [7, 8, 3, 9, 2, 1, 5, 6, 4],
+          [9, 6, 1, 2, 3, 8, 7, 4, 5],
+          [3, 4, 2, 5, 1, 7, 8, 9, 6],
+          [5, 7, 8, 4, 6, 9, 3, 1, 2],
+          [2, 5, 9, 1, 8, 4, 6, 3, 7],
+          [8, 3, 4, 7, 5, 6, 1, 2, 9],
+          [6, 1, 7, 3, 9, 2, 4, 5, 8],]
+
+BOARD = [[0, 0, 0, 0, 7, 3, 2, 0, 0],
+         [1, 0, 0, 0, 4, 5, 0, 0, 0],
+         [7, 8, 0, 9, 0, 0, 0, 6, 0],
+         [0, 6, 0, 0, 0, 8, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 9, 0],
+         [0, 0, 0, 0, 0, 0, 0, 1, 2],
+         [0, 0, 9, 1, 0, 4, 6, 3, 0],
+         [8, 0, 4, 0, 0, 0, 0, 0, 0],
+         [0, 1, 0, 0, 0, 2, 0, 5, 0],]
+
+TEST_SUBPARTS = [[1, 2, 3, 1, 2, 3, 1, 2, 3],
+                 [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                 [7, 8, 9, 7, 8, 9, 7, 8, 9],
+                 [1, 2, 3, 1, 2, 3, 1, 2, 3],
+                 [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                 [7, 8, 9, 7, 8, 9, 7, 8, 9],
+                 [1, 2, 3, 1, 2, 3, 1, 2, 3],
+                 [4, 5, 6, 4, 5, 6, 4, 5, 6],
+                 [7, 8, 9, 7, 8, 9, 7, 8, 9],]
+
+TEST_ROW = [[ 1,  2,  3,  4,  5,  6,  7,  8,  9], 
+            [10, 11, 12, 13, 14, 15, 16, 17, 18], 
+            [19, 20, 21, 22, 23, 24, 25, 26, 27], 
+            [28, 29, 30, 31, 32, 33, 34, 35, 36], 
+            [37, 38, 39, 40, 41, 42, 43, 44, 45], 
+            [46, 47, 48, 49, 50, 51, 52, 53, 54], 
+            [55, 56, 57, 58, 59, 60, 61, 62, 63], 
+            [64, 65, 66, 67, 68, 69, 70, 71, 72], 
+            [73, 74, 75, 76, 77, 78, 79, 80, 81],]
+
+TEST_COL = [[1, 10, 19, 28, 37, 46, 55, 64, 73],
+            [2, 11, 20, 29, 38, 47, 56, 65, 74],
+            [3, 12, 21, 30, 39, 48, 57, 66, 75],
+            [4, 13, 22, 31, 40, 49, 58, 67, 76],
+            [5, 14, 23, 32, 41, 50, 59, 68, 77],
+            [6, 15, 24, 33, 42, 51, 60, 69, 78],
+            [7, 16, 25, 34, 43, 52, 61, 70, 79],
+            [8, 17, 26, 35, 44, 53, 62, 71, 80],
+            [9, 18, 27, 36, 45, 54, 63, 72, 81],]
 # SOLVED = [[3, 1, 6, 5, 7, 8, 4, 9, 2],
 #           [5, 2, 9, 1, 3, 4, 7, 6, 8],
 #           [4, 8, 7, 6, 2, 9, 5, 3, 1],
@@ -46,16 +75,31 @@ BOARD = [[0, 0, 0, 3, 0, 0, 0, 6, 0],
 
 
 def bolded(text: str):
-    BOLD = "\033[1m"
-    END = "\033[0m"
-
     return BOLD + text + END
 
 
+# def display(board):
+#     """
+#     Function to display the required board when needed
+#     """
+#     i = 0
+#     while i < 9:
+#         for x, y, z in zip(board[i],
+#          board[i+1],
+#          board[i+2]):
+#             print(end=" ")
+#             print(*x, end=bolded(" | "))
+#             print(*y, end=bolded(" | "))
+#             print(*z,)
+
+#         i += 3
+#         if i < 9:
+#             print(bolded("\u2500" * 7), bolded("\u2500" * 7), bolded("\u2500" * 7))
+
+
 def display(npboard):
-    """
-    Function to display :param npboard: in the form of a sudoku board
-    """
+    print()
+
     i = 0
     while i < 9:
         row = npboard[i]
@@ -73,25 +117,30 @@ def display(npboard):
             print(bolded("\u2500" * 7), bolded("\u2500" * 7), bolded("\u2500" * 7))
             
     print()
+        # print()
+        # print(row[:3], row[3:6], row[6:9], sep=bolded(" | "))
 
 
-# Seems to be useles
-# def displayed(function):
-#     """
-#     Decorator that displays the board after executing the function call
-#     """
+def displayed(function):
+    """
+    Decorator that displays the board after executing the function call
+    """
 
-#     def wrapper(board=None, *args, **kwargs):
-#         return_val = function(*args, **kwargs)
-#         if board is not None:
-#             display(board)
+    def wrapper(*args, **kwargs):
+        return_val = function(*args, **kwargs)
+        display(BOARD)
+        print("--------------------------------------")
+        display(SOLVED)
 
-#         return return_val
+        return return_val
 
-#     return wrapper
+    return wrapper
+# displayed(main)()
 
+@displayed
 def test_check():
-    pass
+    print(all(0 not in line for line in SOLVED))
+    print(all(0 not in line for line in BOARD))
 
 
 if __name__ == '__main__':

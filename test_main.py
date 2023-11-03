@@ -1,10 +1,10 @@
 from Resources.resources import SOLVED, TEST_SUBPARTS, TEST_ROW, TEST_COL
-from main_no_numpy import get_subpart_index, get_subpart, get_row_col
+from main import get_subpart_index, get_subpart, get_row_col
 from random import randint
 
 
-def test_row_col_getter():
-    print("RUNNING: test_row_col_getter")
+def test_get_subpart_index():
+    print("RUNNING: test_get_subpart_index")
     works = True
 
     i, j, expected = 1, 4, 1 
@@ -73,10 +73,7 @@ def test_get_row_and_col():
 
 
 
-    
-    
-
 if __name__ == "__main__":
-    test_row_col_getter()
+    test_get_subpart_index()
     test_get_subparts()
     test_get_row_and_col()
