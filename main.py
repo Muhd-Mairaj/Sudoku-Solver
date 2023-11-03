@@ -90,11 +90,13 @@ def solve(board, i, j):
                 board[i][j] = option
 
                 # base case, if last position, return True
-                if i == 8 and j == 8:
+                # if i == 8 and j == 8:
+                if i == len(board) - 1 and j == len(board) - 1:
                     return True
 
                 # if recurisve call returns True (solved), return True; else continue
-                if j == 8:
+                # if j == 8:
+                if j == len(board) - 1:
                     if solve(board, i + 1, 0):
                         return True
                 else:
